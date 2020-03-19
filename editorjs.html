@@ -21,12 +21,18 @@ function foo(items) {
 }
 </div>
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = ace.edit("editor");
+    if(localStorage.getItem("texto")){
+        editor.setValue(localStorage.getItem("texto"));
+    }
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/javascript");
-    editor.setFontSize(14); 
+    editor.setFontSize(14);
+    setInterval(function(){
+        localStorage.setItem("texto",editor.getValue());
+    },60*1000);
 </script>
 </body>
 </html>
