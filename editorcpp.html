@@ -15,10 +15,6 @@
 <body>
 
 <div id="editor">
-function foo(items) {
-    var x = "All this is syntax highlighted";
-    return x;
-}
 </div>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -26,6 +22,13 @@ function foo(items) {
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/c_cpp");
+    editor.setFontSize(16);
+    if(localStorage.getItem("texto-cpp")){
+        editor.setValue(localStorage.getItem("texto-cpp"));
+    }
+    setInterval(function(){
+        localStorage.setItem("texto-cpp",editor.getValue());
+    },60*1000);
 </script>
 </body>
 </html>
