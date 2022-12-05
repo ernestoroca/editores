@@ -24,7 +24,16 @@
     }
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/javascript");
-    editor.setOption("esversion", "8");
+    editor.session.on('changeMode', function(e, session) {
+            if ("ace/mode/javascript" === session.getMode().$id) {
+                if (!!session.$worker) {
+                    session.$worker.send("setOptions", [{
+                        "esversion": 9,
+                        "esnext": false,
+                    }]);
+                }
+            }
+        });
     editor.setFontSize(16);
     setInterval(function(){
         localStorage.setItem("texto-js",editor.getValue());
