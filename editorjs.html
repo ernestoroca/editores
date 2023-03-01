@@ -16,25 +16,21 @@
 
 <div id="editor"></div>
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ace.js" type="text/javascript" charset="utf-8"></script>
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ace.js" type="text/javascript" charset="utf-8"></script-->
+    
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.15.2/src-min-noconflict/ace.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdn.jsdelivr.net/npm/ace-builds@1.15.2/css/ace.min.css" rel="stylesheet">    
+    
+    
 <script>
     var editor = ace.edit("editor");
     if(localStorage.getItem("texto-js")){
         editor.setValue(localStorage.getItem("texto-js"));
     }
     editor.setTheme("ace/theme/monokai");
-    editor.session.setMode("ace/mode/javascript");
-    editor.session.on('changeMode', function(e, session) {
-            if ("ace/mode/javascript" === session.getMode().$id) {
-                if (!!session.$worker) {
-                    session.$worker.send("setOptions", [{
-                        "esversion": 9,
-                        "esnext": false,
-                    }]);
-                }
-            }
-        });
     editor.setFontSize(16);
+    editor.session.setMode("ace/mode/javascript");
+    
     setInterval(function(){
         localStorage.setItem("texto-js",editor.getValue());
     },60*1000);
