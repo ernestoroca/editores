@@ -1,0 +1,93 @@
+<html>
+<head>
+</head>
+<body>
+<div id="camba"><canvas id="myCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas></div>
+<input id="arch" name="arch" type="file" style="display:none">
+<img id="foto" src="" alt="" style="display:none">
+<script>
+var canvas = document.getElementById("myCanvas");
+var img = document.getElementById("foto");
+var arch = document.getElementById("arch");
+var ctx = canvas.getContext("2d");
+var mouse_down = false;
+ctx.lineWidth="5";
+ctx.strokeStyle="red";
+
+canvas.ontouchstart = function(ev){
+  var touchobj = ev.changedTouches[0];
+  var sx = parseInt(touchobj.clientX);
+  var sy = parseInt(touchobj.clientY);
+  ctx.beginPath();
+  ctx.moveTo(sx,sy);
+};
+canvas.ontouchmove = function(ev){
+  var touchobj = ev.changedTouches[0];
+  var ex = parseInt(touchobj.clientX);
+  var ey = parseInt(touchobj.clientY);
+  ctx.lineTo(ex,ey);
+  ctx.stroke();
+};
+canvas.onmousedown = function(ev){
+  mouse_down = true;
+  ctx.beginPath();
+  var mouseX = ev.pageX;
+  var mouseY = ev.pageY;
+  ctx.moveTo(mouseX,mouseY);
+};
+canvas.onmousemove = function(ev){
+  if (mouse_down){
+    var mouseX = ev.pageX;
+    var mouseY = ev.pageY;
+    ctx.lineTo(mouseX,mouseY);
+    ctx.stroke();
+  }
+};
+canvas.onmouseup = function(ev){
+  mouse_down=false;
+}
+arch.onchange = function(){
+  var files = arch.files;
+  var fr = new FileReader();
+  fr.onload = function () {
+    img.src = fr.result;
+  }
+  fr.readAsDataURL(files[0]);
+  arch.style.display="none";
+}
+img.onload = function() {
+  ctx.drawImage(img, 0, 0,800,600);
+};
+document.body.onkeypress = function(event){
+  var x = event.which || event.keyCode;
+  var res = String.fromCharCode(x);
+  switch (res){
+    case "h":
+      alert("[c]lear / [r]ed / [g]reen / [b]lue / [f]ile / [1]:thick");
+    case "c":
+      ctx.drawImage(img, 0, 0,800,600);
+      break;
+    case "r":
+      ctx.strokeStyle="red";
+      break;
+    case "g":
+      ctx.strokeStyle="green";
+      break;
+    case "b":
+      ctx.strokeStyle="blue";
+      break;
+    case "f":
+      arch.style.display="inline";
+      break;
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+      ctx.lineWidth=res;
+      break;
+  }
+}
+</script>
+</body>
+</html>
