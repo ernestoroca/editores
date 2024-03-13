@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>JAVASCRIPT</title>
+<style type="text/css" media="screen">
+    #editor { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+</style>
+</head>
+<body>
+
+<div id="editor"></div>
+    
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ace.js" type="text/javascript" charset="utf-8"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+    var editor = ace.edit("editor");
+    if(localStorage.getItem("texto-php")){
+        editor.setValue(localStorage.getItem("texto-php"));
+    }
+    editor.setTheme("ace/theme/monokai");
+    editor.setFontSize(16);
+    editor.session.setMode("ace/mode/php");
+    
+    setInterval(function(){
+        localStorage.setItem("texto-php",editor.getValue());
+    },60*1000);
+</script>
+</body>
+</html>
