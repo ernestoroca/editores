@@ -15,12 +15,13 @@
 <body>
 
 <div id="editor"></div>
-    
 <!--script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.13.1/ace.js" type="text/javascript" charset="utf-8"></script-->
 <!--script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ace.js" type="text/javascript" charset="utf-8"></script-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/ace.js" type="text/javascript" charset="utf-8"></script>
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/ace.js" type="text/javascript" charset="utf-8"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
+    //https://ace.c9.io/
     var editor = ace.edit("editor");
     if(localStorage.getItem("texto-js")){
         editor.setValue(localStorage.getItem("texto-js"));
